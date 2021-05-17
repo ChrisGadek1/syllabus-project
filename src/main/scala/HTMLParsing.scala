@@ -28,8 +28,15 @@ class HTMLParsing {
     }
 
   }
+  def parseHoursToObject(semester: Semester, element: Element, subjectName: String): Unit ={
+    val hours: String = element.select("td:eq(1)").text()
+    val labNumber: Int = getSubjectsHours("Ćwiczenia laboratoryjne: ", hours)
+    val audNumber: Int = getSubjectsHours("Ćwiczenia audytoryjne: ", hours)
+    semester.subjects.add(new Subject(subjectName, labNumber, audNumber))
+  }
 
-  def getParsedPlan(url: String): util.LinkedList[Semester] = {
+  @throws(classOf[Exception])
+  def getParsedPlan(url: String, is_CS: Boolean, path: String): util.LinkedList[Semester] = {
     var html = getHTML(url)
     val doc = Jsoup.parse(html)
     var result = new util.LinkedList[Semester]()
@@ -38,10 +45,24 @@ class HTMLParsing {
       var semester = new Semester(new util.LinkedList[Subject](), i)
       element.select("tr:not([class])").forEach((subject: Element) => {
         val subjectName: String = subject.select("td[scope=row] div").text()
-        val hours: String = subject.select("td:eq(1)").text()
-        val labNumber: Int = getSubjectsHours("Ćwiczenia laboratoryjne: ", hours)
-        val audNumber: Int = getSubjectsHours("Ćwiczenia audytoryjne: ", hours)
-        semester.subjects.add(new Subject(subjectName, labNumber, audNumber))
+        if(is_CS && subjectName.contains("Ścieżki")){
+          var pathElement: Element = subject;
+          while(pathElement != null && pathElement.select("td:eq(0)") != null && pathElement.select("td:eq(0)").text() != "Ścieżka "+path){
+            pathElement = pathElement.nextElementSibling()
+          }
+          if(pathElement == null){
+            throw new java.io.IOException("podana ścieżka nie istnieje: "+path)
+          }
+          pathElement = pathElement.nextElementSibling()
+          while(pathElement != null && pathElement.select("td:eq(0)") != null && pathElement.select("td:eq(0)").attr("style").contains("padding-left: 50")){
+            parseHoursToObject(semester, pathElement, pathElement.select("td[scope=row] div").text())
+            pathElement = pathElement.nextElementSibling()
+          }
+        }
+        else{
+          parseHoursToObject(semester, subject, subjectName)
+        }
+
       })
       result.add(semester)
       i += 1
