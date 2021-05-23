@@ -1,6 +1,7 @@
 package ui
 
 import scala.io.StdIn.readLine
+import FacultiesPath._
 
 class Interpreter {
 
@@ -9,7 +10,7 @@ class Interpreter {
   }
 
   def askAboutCourseType()={
-    println("Czy studiuejsz informatykę na WIEiT? Tak/Nie")
+    println("Czy studiujesz informatykę na WIEiT? Tak/Nie")
     def getResponse(): Boolean = {
       val response = readLine()
       response match {
@@ -25,7 +26,25 @@ class Interpreter {
   }
 
   def getFacultiesPath()={
-
+    var i = 0
+    print("Na jaką ścieżkę kształcenia uczęszczasz? 1/2/3\n")
+    for(p <- FacultiesPath.values){
+      println(i.toString + " " + facultiesPathToString(p))
+      i += 1
+    }
+    def getResponse(): FacultiesPath = {
+      val response = readLine()
+      response match {
+        case "1" => WO
+        case "2" => Algo
+        case "3" => AlgoApi
+        case _ => {
+          println("Podaj prawidłową ścieżkę")
+          getResponse()
+        }
+      }
+    }
+    getResponse()
   }
 
   def getSyllabusLink()={
