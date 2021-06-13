@@ -38,6 +38,13 @@ class DirectoryGenerator {
             audDir.mkdir()
           }
         }
+        for(i <- 1.to(subject.projNumber/2)){
+          val currentAudPath = currentSubjectPath+"\\"+"proj "+i
+          val audDir = new File(currentAudPath)
+          if(!audDir.exists()){
+            audDir.mkdir()
+          }
+        }
       })
     })
   }

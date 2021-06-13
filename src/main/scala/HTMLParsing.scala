@@ -33,7 +33,9 @@ class HTMLParsing {
     val labNumber: Int = getSubjectsHours("Ćwiczenia laboratoryjne: ", hours)
     val audNumber: Int = getSubjectsHours("Ćwiczenia audytoryjne: ", hours)
     val projNumber: Int = getSubjectsHours("Ćwiczenia projektowe: ", hours)
-    semester.subjectsBuffer += Subject(subjectName, labNumber, audNumber, projNumber)
+    if(!subjectName.contains("bieral")){
+      semester.subjectsBuffer += Subject(subjectName, labNumber, audNumber, projNumber)
+    }
   }
 
   @throws(classOf[Exception])
@@ -65,6 +67,7 @@ class HTMLParsing {
 
           pathElement = pathElement.nextElementSibling()
           while(pathElement != null && pathElement.select("td:eq(0)") != null && pathElement.select("td:eq(0)").attr("style").contains("padding-left: 50")){
+
             parseHoursToObject(semester, pathElement, pathElement.select("td[scope=row] div").text())
             pathElement = pathElement.nextElementSibling()
           }
