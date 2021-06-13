@@ -32,8 +32,8 @@ class HTMLParsing {
     val hours: String = element.select("td:eq(1)").text()
     val labNumber: Int = getSubjectsHours("Ćwiczenia laboratoryjne: ", hours)
     val audNumber: Int = getSubjectsHours("Ćwiczenia audytoryjne: ", hours)
-//    semester.subjects.add(new Subject(subjectName, labNumber, audNumber))
-    semester.subjectsBuffer += Subject(subjectName, labNumber, audNumber)
+    val projNumber: Int = getSubjectsHours("Ćwiczenia projektowe: ", hours)
+    semester.subjectsBuffer += Subject(subjectName, labNumber, audNumber, projNumber)
   }
 
   @throws(classOf[Exception])
