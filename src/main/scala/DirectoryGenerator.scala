@@ -5,20 +5,20 @@ import java.util
 import Plan.{Semester, Subject}
 
 class DirectoryGenerator {
-  def generateDirectoryTree(semesters: util.LinkedList[Semester], path: String): Unit ={
+  def generateDirectoryTree(semesters: Vector[Semester], directoryPath: String): Unit ={
 
-    val path_V = path+"\\studia_test"
-    val directory:File = new File(path_V)
+
+    val directory:File = new File(directoryPath)
     if(!directory.exists()){
       directory.mkdir()
     }
-    semesters.forEach((semester: Semester) =>{
-      val currentSemPath = path_V+"\\semestr "+semester.semesterNumber
+    semesters.foreach((semester: Semester) =>{
+      val currentSemPath = directoryPath+"\\semestr "+semester.semesterNumber
       val semesterDir = new File(currentSemPath)
       if(!semesterDir.exists()){
         semesterDir.mkdir()
       }
-      semester.subjects.forEach((subject: Subject) => {
+      semester.subjects.foreach((subject: Subject) => {
         val currentSubjectPath = currentSemPath+"\\"+subject.subjectName
         val subjectDir = new File(currentSubjectPath)
         if(!subjectDir.exists()){
@@ -41,4 +41,8 @@ class DirectoryGenerator {
       })
     })
   }
+
+  def createDirsForSemester(semester: Semester, directoryPath: String): Unit = generateDirectoryTree(Vector(semester), directoryPath)
+
+
 }

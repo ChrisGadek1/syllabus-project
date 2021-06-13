@@ -5,9 +5,9 @@ object Main {
   def main(args: Array[String]): Unit = {
     val htmlParsing = new HTML.HTMLParsing()
     val semesters = htmlParsing.getParsedPlan("https://sylabusy.agh.edu.pl/pl/1/1/15/1/4/14/29", true,"wytwarzanie oprogramowania")
-    semesters.forEach((semester: Semester) => {
+    semesters.foreach((semester: Semester) => {
       print("semestr numer: "+semester.semesterNumber+"\n\n")
-      semester.subjects.forEach((subject: Subject) => {
+      semester.subjects.foreach((subject: Subject) => {
         print("nazwa: "+subject.subjectName+", labów: "+subject.labNumbers+", ćwiczeń: "+subject.audNumber+"\n")
       })
       print("\n========================\n")
