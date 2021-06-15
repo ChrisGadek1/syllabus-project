@@ -1,6 +1,9 @@
 package ui
 import FacultiesPath._
 import Plan.Semester
+
+import java.io.IOException
+
 object MainTest {
 
   def main(args: Array[String]): Unit = {
@@ -27,7 +30,18 @@ object MainTest {
 
     interpreter.editOrCreateDirs(semester)
 
-    interpreter.createDirs(semester)
+    try{
+      interpreter.createDirs(semester)
+
+    } catch{
+      case _: IOException =>
+        println("Błędna ścieżka")
+      case ex: Throwable =>
+        ex.printStackTrace()
+
+    }
+
+
 
 
   }

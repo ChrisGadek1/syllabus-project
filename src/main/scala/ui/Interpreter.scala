@@ -3,9 +3,8 @@ package ui
 import DGenerator.DirectoryGenerator
 
 import scala.io.StdIn.readLine
-import scala.io.StdIn.readf
 import FacultiesPath._
-import Plan.{Semester, Subject}
+import Plan.Semester
 
 
 class Interpreter {
@@ -56,13 +55,14 @@ class Interpreter {
     println("Podaj link do syllabusów Twojego kierunku, np. https://sylabusy.agh.edu.pl/pl/1/1/17/1/4/12/13")
 
     def getLink():String = {
-      val syllabusLink = readLine()
-      if(!syllabusLink.contains("sylabusy.agh.edu.pl")){
-        println("Podano nieprawidłowy link")
-        getLink()
-      } else{
-        syllabusLink
+      var syllabusLink = readLine()
+      print(syllabusLink)
+      while(!syllabusLink.contains("sylabusy.agh.edu.pl")){
+        println("Podano nieprawidłowy link, spróbuj jeszcze raz")
+        syllabusLink = readLine()
       }
+      syllabusLink
+
     }
     getLink()
   }
@@ -93,7 +93,6 @@ class Interpreter {
 
     def getResponse(): Unit ={
       try {
-//        val res = readf("{0} {1}")
         val res = readLine()
         val splitRes = res.split(" ")
         var subjectNumber = 0

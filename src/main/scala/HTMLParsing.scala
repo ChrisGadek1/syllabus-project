@@ -33,7 +33,7 @@ class HTMLParsing {
     val labNumber: Int = getSubjectsHours("Ćwiczenia laboratoryjne: ", hours)
     val audNumber: Int = getSubjectsHours("Ćwiczenia audytoryjne: ", hours)
     val projNumber: Int = getSubjectsHours("Ćwiczenia projektowe: ", hours)
-    if(!subjectName.contains("bieral")){
+    if(!subjectName.contains("bieral") && !subjectName.contains("ychowanie") && !subjectName.contains("WF")){
       semester.subjectsBuffer += Subject(subjectName, labNumber, audNumber, projNumber)
     }
   }

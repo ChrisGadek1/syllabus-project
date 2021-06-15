@@ -1,6 +1,5 @@
 package DGenerator
 import java.io.File
-import java.util
 
 import Plan.{Semester, Subject}
 

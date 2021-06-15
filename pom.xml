@@ -14,6 +14,11 @@
             <artifactId>jsoup</artifactId>
             <version>1.13.1</version>
         </dependency>
+        <dependency>
+            <groupId>org.scalactic</groupId>
+            <artifactId>scalactic_2.13</artifactId>
+            <version>3.0.8</version>
+        </dependency>
     </dependencies>
 
     

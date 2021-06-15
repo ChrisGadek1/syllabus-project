@@ -1,7 +1,7 @@
 package ui
 
 import HTML.HTMLParsing
-import Plan.{Semester, Subject}
+import Plan.Semester
 import ui.FacultiesPath._
 
 class ParserWrapper(val syllabusLink: String, val parser: HTMLParsing = new HTMLParsing(), var semesters: Vector[Semester] = null ) {
